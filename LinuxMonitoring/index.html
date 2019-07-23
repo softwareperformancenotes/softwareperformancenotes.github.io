@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Linux Monitoring - Software Performance Engineering/Testing Notes</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Linux Monitoring";
+    var mkdocs_page_input_path = "LinuxMonitoring.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Software Performance Engineering/Testing Notes</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Concepts</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="..">Home (This Site is Under Construction)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../PerformanceTestingVSEngineering/">Performance Testing vs Performance Engineering</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Linux Monitoring</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#linux-monitoring">Linux Monitoring</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#cpu">CPU  :</a></li>
+        
+            <li><a class="toctree-l4" href="#memory">Memory :</a></li>
+        
+            <li><a class="toctree-l4" href="#disk">Disk :</a></li>
+        
+            <li><a class="toctree-l4" href="#network">Network :</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../oops/">Java oops Concepts</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../rssvsz/">Memory RSS vs VSZ</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../jvmarch/">JVM Architecture</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../oomerrors/">Understanding the OutOfMemory Errors</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Software Performance Engineering/Testing Notes</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Concepts &raquo;</li>
+        
+      
+    
+    <li>Linux Monitoring</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="linux-monitoring">Linux Monitoring</h1>
+<p>Linux OS has rich set of libraries and mostly easily accessible. There are native libraries/tools which can monitor <strong>CPU , Memory , Disk , Network</strong>  etc. without having license to any expensive Application Monitoring Solution.</p>
+<p>No Performance Report is considered complete if you are not providing resource utilization numbers or graph. It helps understand the Infrastructure capability and scaling for current load as well as helps to understand and plan the future load.</p>
+<h3 id="cpu">CPU  :</h3>
+<p>There are many ways we can extract or monitor CPU Utilization in Linux</p>
+<p><strong>a. "top"</strong>  - Type "top" in command line and hit enter, you will see something like below.</p>
+<p>​       <img alt="1562220217641" src="C:\Users\vagrawal\AppData\Roaming\Typora\typora-user-images\1562220217641.png" /></p>
+<p>The output from top is divided into two sections. The first few lines give a summary of the system      resources including a breakdown of the number of tasks, the CPU statistics, and the current memory usage. Beneath these stats is a live list of the current running processes. This list can be sorted by PID, CPU usage, memory usage, and so on.</p>
+<p>The CPU line will look something like this:</p>
+<pre><code>%Cpu(s): 24.8 us,  0.2 sy,  0.0 ni, 73.6 id,  0.4 wa,  0.0 hi,  0.2 si,  0.0 st
+</code></pre>
+
+<p><code>24.8 us</code> - This tells us that the processor is spending 24.8% of its time <strong>running user space processes</strong>. A user space program is any process that doesn't belong to the kernel. Shells, compilers, databases, web servers, and the programs associated with the desktop are all user space processes. If the processor isn't idle, it is quite normal that the majority of the CPU time should be spent running user space processes.</p>
+<p><code>73.6 id</code> - Skipping over a few of the other statistics, just for a moment, the id statistic tell us that the <strong>processor was idle</strong> just over 73% of the time during the last sampling period. The total of the user space percentage - <code>us</code>, the <em>niced</em> percentage - <code>ni</code>, and the idle percentage - <code>id</code>, should be close to 100%. Which it is in this case. If the CPU is spending a more time in the other states then something is probably awry - see the Troubleshooting section below.</p>
+<p><code>0.5 sy</code> - This is the amount of time that the CPU spent <strong>running the kernel</strong>. All the processes and system resources are handled by the Linux kernel. When a user space process needs something from the system, for example when it needs to allocate memory, perform some I/O, or it needs to create a child process, then the kernel is running. In fact the scheduler itself which determines which process runs next is part of the kernel. The amount of time spent in the kernel should be as low as possible. In this case, just 0.5% of the time given to the different processes was spent in the kernel. This number can peak much higher, especially when there is a lot of I/O happening.</p>
+<p><code>0.0 ni</code> - As mentioned above, the priority level a user space process can be tweaked by adjusting its <em>niceness</em>. The <code>ni</code> stat shows <strong>how much time the CPU spent running user space processes that have been niced</strong>. On a system where no processes have been <em>niced</em> then the number will be 0.</p>
+<p><code>0.4 wa</code> - Input and output operations, like reading or writing to a disk, are slow compared to the speed of a CPU. Although this operations happen very fast compared to everyday human activities, they are still slow when compared to the performance of a CPU. There are times when the processor has initiated a read or write operation and then it has to wait for the result, but has nothing else to do. In other words it is <strong>idle while waiting for an I/O operation to complete</strong>. The time the CPU spends in this state is shown by the <code>wa</code> statistic.</p>
+<p><code>0.0 hi</code> &amp; <code>0.2 si</code> - These two statistics show <strong>how much time the processor has spent servicing interrupts</strong>. <code>hi</code> is for hardware interrupts, and <code>si</code> is for software interrupts. Hardware interrupts are physical interrupts sent to the CPU from various peripherals like disks and network interfaces. Software interrupts come from processes running on the system. A hardware interrupt will actually cause the CPU to stop what it is doing and go handle the interrupt. A software interrupt doesn't occur at the CPU level, but rather at the kernel level.</p>
+<p><code>0.0 st</code> - This last number only applies to virtual machines. When Linux is running as a virtual machine on a hypervisor, the <code>st</code> (short for stolen) statistic shows <strong>how long the virtual CPU has spent waiting for the hypervisor to service another virtual CPU</strong> running on a different virtual machine. Since in the real-world these virtual processors are sharing the same physical processor(s) then there will be times when the virtual machine wanted to run but the hypervisor scheduled another virtual machine instead.</p>
+<p>​   <strong>b. "vmstat"</strong></p>
+<p>​           </p>
+<p>​   <strong>c.  "mpstat"</strong></p>
+<p>​   d. </p>
+<h3 id="memory">Memory :</h3>
+<h3 id="disk">Disk :</h3>
+<h3 id="network">Network :</h3>
+<p>Sources :</p>
+<p><a href="https://scoutapm.com/blog/understanding-linuxs-cpu-stats">https://scoutapm.com/blog/understanding-linuxs-cpu-stats</a></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../oops/" class="btn btn-neutral float-right" title="Java oops Concepts">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../PerformanceTestingVSEngineering/" class="btn btn-neutral" title="Performance Testing vs Performance Engineering"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../PerformanceTestingVSEngineering/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../oops/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
