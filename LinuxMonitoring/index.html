@@ -143,10 +143,10 @@
 <h3 id="cpu">CPU  :</h3>
 <p>There are many ways we can extract or monitor CPU Utilization in Linux</p>
 <p><strong>a. "top"</strong>  - Type "top" in command line and hit enter, you will see something like below.</p>
-<p>​       <img alt="1562220217641" src="C:\Users\vagrawal\AppData\Roaming\Typora\typora-user-images\1562220217641.png" /></p>
+<p>​       <img alt="1562220217641" src="../img/1562220217641.png" /></p>
 <p>The output from top is divided into two sections. The first few lines give a summary of the system      resources including a breakdown of the number of tasks, the CPU statistics, and the current memory usage. Beneath these stats is a live list of the current running processes. This list can be sorted by PID, CPU usage, memory usage, and so on.</p>
 <p>The CPU line will look something like this:</p>
-<pre><code>%Cpu(s): 24.8 us,  0.2 sy,  0.0 ni, 73.6 id,  0.4 wa,  0.0 hi,  0.2 si,  0.0 st
+<pre><code>%Cpu(s): 24.8 us,  0.5 sy,  0.0 ni, 73.6 id,  0.4 wa,  0.0 hi,  0.2 si,  0.0 st
 </code></pre>
 
 <p><code>24.8 us</code> - This tells us that the processor is spending 24.8% of its time <strong>running user space processes</strong>. A user space program is any process that doesn't belong to the kernel. Shells, compilers, databases, web servers, and the programs associated with the desktop are all user space processes. If the processor isn't idle, it is quite normal that the majority of the CPU time should be spent running user space processes.</p>
@@ -156,10 +156,44 @@
 <p><code>0.4 wa</code> - Input and output operations, like reading or writing to a disk, are slow compared to the speed of a CPU. Although this operations happen very fast compared to everyday human activities, they are still slow when compared to the performance of a CPU. There are times when the processor has initiated a read or write operation and then it has to wait for the result, but has nothing else to do. In other words it is <strong>idle while waiting for an I/O operation to complete</strong>. The time the CPU spends in this state is shown by the <code>wa</code> statistic.</p>
 <p><code>0.0 hi</code> &amp; <code>0.2 si</code> - These two statistics show <strong>how much time the processor has spent servicing interrupts</strong>. <code>hi</code> is for hardware interrupts, and <code>si</code> is for software interrupts. Hardware interrupts are physical interrupts sent to the CPU from various peripherals like disks and network interfaces. Software interrupts come from processes running on the system. A hardware interrupt will actually cause the CPU to stop what it is doing and go handle the interrupt. A software interrupt doesn't occur at the CPU level, but rather at the kernel level.</p>
 <p><code>0.0 st</code> - This last number only applies to virtual machines. When Linux is running as a virtual machine on a hypervisor, the <code>st</code> (short for stolen) statistic shows <strong>how long the virtual CPU has spent waiting for the hypervisor to service another virtual CPU</strong> running on a different virtual machine. Since in the real-world these virtual processors are sharing the same physical processor(s) then there will be times when the virtual machine wanted to run but the hypervisor scheduled another virtual machine instead.</p>
-<p>​   <strong>b. "vmstat"</strong></p>
-<p>​           </p>
-<p>​   <strong>c.  "mpstat"</strong></p>
-<p>​   d. </p>
+<p><strong>b. "vmstat"</strong> </p>
+<p>vmstat is also one of the inbuilt command in unix, it provides CPU,  Memory information as well as information like paging, block IO, disks etc. we can also visualize how many requests are waiting to be served by cpu threads.</p>
+<p>Command : <code>vmstat [interval] [count]</code></p>
+<p>Run command like <code>vmstat 1 10</code> , this will capture vmstat statistics every 1 sec and will run 10 times.</p>
+<p><img alt="1563879429470" src="../img/1563879429470.png" /></p>
+<p>If you want to know more about any command available in unix/linux , run 'man' command.</p>
+<p>Ex : <code>man vmstat</code>   , below the selected part of the 'man' command.</p>
+<p><strong>Procs</strong>
+       r: The number of runnable processes (running or waiting for run time).
+       b: The number of processes in uninterruptible sleep.</p>
+<p><strong>Memory</strong>
+       swpd: the amount of virtual memory used.
+       free: the amount of idle memory.
+       buff: the amount of memory used as buffers.
+       cache: the amount of memory used as cache.
+       inact: the amount of inactive memory.  (-a option)
+       active: the amount of active memory.  (-a option)</p>
+<p><strong>Swap</strong>
+       si: Amount of memory swapped in from disk (/s).
+       so: Amount of memory swapped to disk (/s).</p>
+<p><strong>IO</strong>
+       bi: Blocks received from a block device (blocks/s).
+       bo: Blocks sent to a block device (blocks/s).</p>
+<p><strong>System</strong>
+       in: The number of interrupts per second, including the clock.
+       cs: The number of context switches per second.</p>
+<p><strong>CPU</strong>
+       These are percentages of total CPU time.
+       us: Time spent running non-kernel code.  (user time, including nice time)
+       sy: Time spent running kernel code.  (system time)
+       id: Time spent idle.  Prior to Linux 2.5.41, this includes IO-wait time.
+       wa: Time spent waiting for IO.  Prior to Linux 2.5.41, included in idle.
+       st: Time stolen from a virtual machine.  Prior to Linux 2.6.11, unknown.</p>
+<p><strong>c.  "mpstat"</strong>: </p>
+<p>Some times its required to understand the CPU usage behavior per core. This can be achieved by using 'mpstat' command.</p>
+<p>Run command as <code>mpstat -P ALL 2 5</code> , this command will print statistics every 2 sec 5 times. output will look like this :</p>
+<p><img alt="1563880863439" src="../img/1563880863439.png" /></p>
+<p>As you can see on top right corner , total number of CPU this server has are 2. Multiple rows of output shows statistics for all the cores as average and per core (watch CPU Column)</p>
 <h3 id="memory">Memory :</h3>
 <h3 id="disk">Disk :</h3>
 <h3 id="network">Network :</h3>
