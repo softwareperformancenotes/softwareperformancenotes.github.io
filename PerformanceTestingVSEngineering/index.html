@@ -126,17 +126,43 @@
             <div class="section">
               
                 <h1 id="performance-testing-vs-performance-engineering">Performance Testing vs Performance Engineering</h1>
-<p>Before we get to know the difference we should know what is Performance Testing?</p>
-<p>Performance Testing is one type of Non Functional Testing , its main goal is to understand the Performance part of application such as Response Time, Throughput, Scalability , Resource consumption and behavior under load.</p>
+<p>First of all, In my opinion this whole arrangement (Performance Testing and Engineering) is created as the responsibility and applications are growing (in terms of complexity of the Architecture, Functionality and Technologies being used in developing those applications). Now a days we are not limited to application with three tier Architecture kind , applications are developed keeping in mind that there will be many users using the system or much more data is going to come. </p>
+<p>Micro Services kind Architecture are being developed to deal with such large volumes and users. Usage of highly distributed solutions (NoSql Databases like Cassandra, MongoDB , High Performant Messaging systems like Kafka, Distributed caching Solutions like Memcache , Redis etc) are also helping to achieve such systems.</p>
+<p>To measure the Performance of such application/software requires understanding of Functionality , Architecture, tools to Monitor as well as Analysis of various end points (Be it infrastructure or technologies being used).</p>
+<p>Complex UIs and many interconnected services(APIs) are not helping Performance Testing task, its more demanding now to understand the Data Flow, Communication Protocols and various third party software interaction. It requires good amount of time to prepare Data and Performance Scripts to get ready for the Performance Testing especially for large volume. Not just scripting and data preparation its also the Monitoring of resources and application which requires lot of understanding and pre-test setup work.</p>
+<p>Now a days applications development is fast paced , Agile process has made feature based delivery and deployments. We can't miss any feature or build to consider for its performance behavior. It may perform good or bad or even impact good or bad to existing features as well.</p>
+<p>Now, </p>
 <ul>
-<li>Is there any change in Application Performance after introducing any new feature, improved or degraded or no change?</li>
-<li>How good our application respond when X number of users will be accessing our application?</li>
+<li>What happens if we found that any feature or flow is not performing good? or If any Performance issues comes in Production? </li>
+<li>What if access of all environment can't be given to everyone or every performance testing team member?  Who will work on feature' Performance Testing? </li>
+<li>at the same time who will be analyzing Production Performance issues? </li>
+<li>Who will take care of Performance Testing tools, trends and industry standards?</li>
+<li>What all things to consider for debugging any Performance Issue? What all Profilers are available?</li>
+<li>How to analyze each layer of Infrastructure or Even Code? </li>
+</ul>
+<p>All these factors or can say end to end responsibilities are difficult to handle, so somewhere we needed a modularized arrangement where responsibility can be shared or divided and ownership can be defined, hence the 'Performance Testing' and 'Performance Engineering'. </p>
+<p>So Let's try to understand the responsibilities of each roles. In general <strong>Performance Testing</strong> is subset of <strong>Performance Engineering</strong>. </p>
+<p><strong>Performance Testing</strong> is one type of Non Functional Testing , its main goal is to explore the Performance metrics part of application (such as Response Time, Throughput, Scalability)  as well as monitoring Resource consumption and behavior under load. </p>
+<p>Performance Test Engineer has to also take care of things like : </p>
+<ul>
+<li>Any change in Application Performance after introducing any new feature, improved/degraded or no change?</li>
+<li>How good or bad our application responds when X number of users will be accessing our application?</li>
 <li>How many users our application can handle on available size of server with X CPU and Y Memory etc?</li>
 <li>Can we scale our application in future(in 6 months or 12 months) if application user base or data volume by X rate?</li>
 <li>Are we seeing any improvement when we move our application from X cloud to Y cloud or from A region to  B region?</li>
 <li>Is there any performance impact if we upgrade our servers or application or dependent technologies?</li>
 </ul>
-<p>In general <strong>Performance Testing</strong> is subset of <strong>Performance Engineering</strong>. </p>
+<p>A good Performance Testing professional should also know about what all parameters to monitor and provide the report with all the metrics which is required for analysis.</p>
+<p>Where as a <strong>Performance Engineer</strong> might not worry about how to make script or which tool to use for scripting or how to maintain regression test suit or how to prepare data. Its more about analysis/debugging </p>
+<p>Performance Engineer also has to :</p>
+<ul>
+<li>Know about the detailed Architecture of the application so that he/she can help Performance Tester to design test case.</li>
+<li>A good understanding of Architecture also helps to properly understand the Issues or Bottlenecks which is being identified in application during Performance Testing Exercise or in Production.</li>
+<li>To know about the technologies being used across application and to some extent its internal working and tools/techniques to debug especially its Performance aspects.</li>
+<li>Help Architects to do POCs based on assumed volume and technologies considered for the application development during design phase itself so that proper adjustment can be made in design to handle the volume and future requirements.</li>
+<li>Suggest design changes or best practices based on POCs or based on the Historical Performance Test reports pattern.</li>
+<li>Understanding backend and DB technologies also help to identify Profilers and various methods to track less performing code or queries etc.</li>
+</ul>
               
             </div>
           </div>
